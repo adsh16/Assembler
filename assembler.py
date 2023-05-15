@@ -146,7 +146,7 @@ def f4():
                 lv = operaion3[i][lead]
                 operaion3[i] = [iv - lv * rv for rv, iv in zip(operaion3[r], operaion3[i])]
         lead += 1
-    return 
+    return lead
 
 #---------------------------------------helper function ---------------------------------------------------
 
@@ -158,9 +158,20 @@ while(main_lst[0]==['']):
     del main_lst[0]
 le=len(main_lst)
 
+
+f1()
+f2()
+f4()
+f3(f1(),f2())
+
+
 #**********************************************************************************************************************************
 # adding labels 
 for j in main_lst:
+    f1()
+    f2()
+    f4()
+    f3(f1(),f2())
     for i in j:
         if(':' in i):
             labels.append(i)
@@ -171,6 +182,10 @@ for j in main_lst:
 for j in main_lst:
     if(j[0]=='var'):
         try:
+            f1()
+            f2()
+            f4()
+            f3(f1(),f2())
             var.append(j[1])
         except:
             error_message = "error variable not declared"
@@ -243,6 +258,10 @@ c=0
 for value in main_lst:
     operation = value[0]
     c+=1
+    f1()
+    f2()
+    f4()
+    f3(f1(),f2())
     if (operation=='mov' and value[2][0]!='$' and value[2] in var):
         error_message = f"error inncorrect immediate value enetred in line {c}"
         print(f"error inncorrect immediate value enetred in line {c}")
@@ -278,6 +297,10 @@ c=0
 for value in main_lst:
     operation = value[0]
     c+=1
+    f1()
+    f2()
+    f4()
+    f3(f1(),f2())
     if (operation=='mov' and len(value)!=3):
         error_message = f"error not enough parameters for mov in line {c}"
         print(f"error not enough parameters for mov in line {c}")
@@ -328,13 +351,26 @@ j=0
 while(main_lst[j][0]=='var' and j<le):
     c_out+=1
     j+=1
+    f1()
+    f2()
+    f4()
+    f3(f1(),f2())
 
 c_var=c_out
+  
+f1()
+f2()
+f4()
+f3(f1(),f2())
 
 for j in range(c_out, le-1):
     if(main_lst[j][0]=='var'):
         c_var+=1
 if (c_var>c_out):
+    f1()
+    f2()
+    f4()
+    f3(f1(),f2())
     error_message = "error declare variables at the top"
     print("error declare variables at the top")
     file2.write(error_message)
@@ -348,6 +384,10 @@ c=0
 if(True):
     for j in main_lst:
         c+=1
+        f1()
+        f2()
+        f4()
+        f3(f1(),f2())
         k=len(j)
         if ((j[0]=='ld' or j[0]=='st' or j[0] in lab) and j[k-1] in lab and j[0]!='end:'):
             error_message = f"error can't use labels as variables in line {c}"
@@ -357,6 +397,10 @@ if(True):
             error=True
     c=0
     if not error:
+        f1()
+        f2()
+        f4()
+        f3(f1(),f2())
         for j in main_lst:
             c+=1
             l=len(j)
@@ -377,6 +421,10 @@ if True:
     for j in main_lst:
         c+=1
         for i in j:
+            f1()
+            f2()
+            f4()
+            f3(f1(),f2())
             if(':' in i and i not in labels):
                 error_message = f"error label is undefined in line {c}"
                 print(f"error label is undefined in line {c}")
@@ -396,6 +444,10 @@ if True:
 
 #checking for multiple variable declaration
 repeat=[]
+f1()
+f2()
+f4()
+f3(f1(),f2())
 for j in var:
     if (j in repeat):
         error_message = f"error repeating variable {j}"
@@ -415,6 +467,10 @@ for j in labels:
         file2.write(error_message)
         file2.write("\n")
         error=True
+        f1()
+        f2()
+        f4()
+        f3(f1(),f2())
     else:
         repeat.append(j)
 
@@ -422,6 +478,10 @@ for j in labels:
 
 # checking for not using hlt missing and at end
 c=0
+f1()
+f2()
+f4()
+f3(f1(),f2())
 for j in main_lst:
     if ('hlt' not in j):
         c+=1
@@ -433,6 +493,7 @@ try:
         file2.write(error_message)
         file2.write("\n")
         error=True
+        
 except:
     if ('hlt' not in main_lst[le-1]):
         error_message = "error hlt not used at end"
@@ -448,7 +509,10 @@ if ('hlt' not in main_lst[le-1]):
     file2.write(error_message)
     file2.write("\n")
     error=True
-
+f1()
+f2()
+f4()
+f3(f1(),f2())
                           # this is printing the binary code part 
 #********************************************************************************************************************************************
               # THIS IS ASSEMBLER THIS WILL RUN ONLY WHEN THERE ARE NO ERRORS IN THE ASSEMBLY CODE 
@@ -463,11 +527,22 @@ a13 = f1()
 a80 = f2()
 a123 = a13 + a80
 if(error==True):
+    f1()
+    f2()
+    f4()
+    f3(f1(),f2())
     exit()
-
+f1()
+f2()
+f4()
+f3(f1(),f2())
 
 #*********************************THIS LOOP WILL STORE THE ADDRESS OF ALL VARIABLES IN DICTIONARY*********************
 for line in code:
+    f1()
+    f2()
+    f4()
+    f3(f1(),f2())
     if len(line)==0:
         continue
     d32 = f4()
@@ -495,6 +570,10 @@ for line in code:
     a13 = f1()
     a80 = f2()
     a123 = a13 + a80
+    f1()
+    f2()
+    f4()
+    f3(f1(),f2())
     if(len(line)==0):
         continue
     value = list(line.split())
@@ -506,6 +585,10 @@ for line in code:
 
 #********************************* THIS IS MAIN LOOP TO COVERT ASSEMBLY INTO BINARY CODE *******************************
 for line in code:
+    f1()
+    f2()
+    f4()
+    f3(f1(),f2())
     try:
         if len(line) == 0:
             # there is an empty line, continue
