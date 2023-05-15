@@ -2,17 +2,16 @@
     CSE 112 - Computer Organisation group project.
         group members :
             Aditya Sharma 2022038
-            Ayan kumar 
-            Ayaan hasan 2022121
-            Kanishk Kumar Meena 2022233
+            Ayan kumar
+            Aayan hasan 2022121
+            Kanishk kumar meena 
 '''
 
 
 # ------------------------------------------taking input throught a text file contating assemble code------------------------------------------------------
-with open('test_case3.txt') as file1:  
-    code = file1.read().splitlines() 
-# ----------------------------------------------file to which the out generated will be written---------------------------------------------------
-file2 = open("output.txt","w")
+with open('t1.txt') as f:  
+    code = f.read().splitlines() 
+
 # -----------------------------------------------input code ends---------------------------------------------
  # ACTUAL CODE STARTS FORM HERE  
 
@@ -122,6 +121,7 @@ def f3(a, b):
 
 import numpy as np
 
+
 def f4():
     operaion3 = [[0,0,3],[0,5,6],[0,8,9]]
     m = len(operaion3)
@@ -146,7 +146,7 @@ def f4():
                 lv = operaion3[i][lead]
                 operaion3[i] = [iv - lv * rv for rv, iv in zip(operaion3[r], operaion3[i])]
         lead += 1
-    return lead
+    return 
 
 #---------------------------------------helper function ---------------------------------------------------
 
@@ -158,20 +158,9 @@ while(main_lst[0]==['']):
     del main_lst[0]
 le=len(main_lst)
 
-
-f1()
-f2()
-f4()
-f3(f1(),f2())
-
-
 #**********************************************************************************************************************************
 # adding labels 
 for j in main_lst:
-    f1()
-    f2()
-    f4()
-    f3(f1(),f2())
     for i in j:
         if(':' in i):
             labels.append(i)
@@ -182,16 +171,9 @@ for j in main_lst:
 for j in main_lst:
     if(j[0]=='var'):
         try:
-            f1()
-            f2()
-            f4()
-            f3(f1(),f2())
             var.append(j[1])
         except:
-            error_message = "error variable not declared"
             print("error variable not declared")
-            file2.write(error_message)
-            file2.write("\n")
             error=True
 
 #***********************************************************************************************************************************
@@ -208,17 +190,11 @@ for j in main_lst:
         else:
             if(dol[0]=='$'):
                 if (dol[1:].isnumeric()==False):
-                    error_message = f"error invalid immidiate value entered {c}."
                     print(f"error invalid immidiate value entered {c}.")
-                    file2.write(error_message)
-                    file2.write("\n")
                 else:
                     n = int(dol[1:])
                     if (n<0 or n>256):
-                        error_message = f"error invalid immidiate value entered {c}."
                         print(f"error invalid immidiate value entered {c}.")
-                        file2.write(error_message)
-                        file2.write("\n")
                         error=True
 
 # checking for typos in reg_names
@@ -233,10 +209,7 @@ for j in main_lst:
                 if(i[0]=='R'):
                     a=i
                     if(a not in reg):
-                        error_message = f"error invalid register entered {c}."
                         print(f"error invalid register entered {c}.")
-                        file2.write(error_message)
-                        file2.write("\n")
                         error=True
 
 # checking for typos in opr_symbols
@@ -245,10 +218,7 @@ for j in main_lst:
     c+=1
     if(j!=['']):
         if(j[0] not in opr_sym and (j[0]!='var' and ':' not in j[0])):
-            error_message = f"error invalid operation symbol is used {c}."
             print(f"error invalid operation symbol is used {c}.")
-            file2.write(error_message)
-            file2.write("\n")
             error=True
 
 #*************************************************************************************************************************************
@@ -258,37 +228,21 @@ c=0
 for value in main_lst:
     operation = value[0]
     c+=1
-    f1()
-    f2()
-    f4()
-    f3(f1(),f2())
     if (operation=='mov' and value[2][0]!='$' and value[2] in var):
-        error_message = f"error inncorrect immediate value enetred in line {c}"
         print(f"error inncorrect immediate value enetred in line {c}")
-        file2.write(error_message)
-        file2.write("\n")
 
     elif (operation in opr_sym and operation!='mov'):
         # matching the values with op_mnemoics
         case = operations[operation][1]
 
         if (case == "B" and value[2][0]!='$' and value[2] in var):
-             error_message = f"error inncorrect immediate value enetred in line {c}"
              print(f"error inncorrect immediate value enetred in line {c}")
-             file2.write(error_message)
-             file2.write("\n")
 
         elif (case == "D" and value[2][0]!='$' and value[2] in var):
-            error_message = f"error inncorrect immediate value enetred in line {c}"
             print(f"error inncorrect immediate value enetred in line {c}")
-            file2.write(error_message)
-            file2.write("\n")
 
         elif (case == "E" and value[1][0]!='$' and value[1] in var):
-            error_message = f"error inncorrect immediate value enetred in line {c}"
             print(f"error inncorrect immediate value enetred in line {c}")
-            file2.write(error_message)
-            file2.write("\n")
 
 #*************************************************************************************************************************************
 
@@ -297,50 +251,27 @@ c=0
 for value in main_lst:
     operation = value[0]
     c+=1
-    f1()
-    f2()
-    f4()
-    f3(f1(),f2())
     if (operation=='mov' and len(value)!=3):
-        error_message = f"error not enough parameters for mov in line {c}"
         print(f"error not enough parameters for mov in line {c}")
-        file2.write(error_message)
-        file2.write("\n")
 
     elif (operation in opr_sym and operation!='mov'):
         # matching the values with op_mnemoics
         case = operations[operation][1]
 
         if (case == "B" and len(value)!=3):
-            error_message = f"error not enough parameters for {operation}"
-            print(f"error not enough parameters for {operation}")
-            file2.write(error_message)
-            file2.write("\n")
-             
+             print(f"error not enough parameters for {operation}")
 
         elif (case == "A" and len(value)!=4):
-            error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
-            file2.write(error_message)
-            file2.write("\n")
 
         elif (case == "C" and len(value)!=3):
-            error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
-            file2.write(error_message)
-            file2.write("\n")
 
         elif (case == "D" and len(value)!=3):
-            error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
-            file2.write(error_message)
-            file2.write("\n")
 
         elif (case == "E" and len(value)!=2):
-            error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
-            file2.write(error_message)
-            file2.write("\n")
 
 #*************************************************************************************************************************************
 
@@ -351,30 +282,14 @@ j=0
 while(main_lst[j][0]=='var' and j<le):
     c_out+=1
     j+=1
-    f1()
-    f2()
-    f4()
-    f3(f1(),f2())
 
 c_var=c_out
-  
-f1()
-f2()
-f4()
-f3(f1(),f2())
 
 for j in range(c_out, le-1):
     if(main_lst[j][0]=='var'):
         c_var+=1
 if (c_var>c_out):
-    f1()
-    f2()
-    f4()
-    f3(f1(),f2())
-    error_message = "error declare variables at the top"
     print("error declare variables at the top")
-    file2.write(error_message)
-    file2.write("\n")
     error=True
 
 #************************************************************************************************************************************
@@ -384,33 +299,19 @@ c=0
 if(True):
     for j in main_lst:
         c+=1
-        f1()
-        f2()
-        f4()
-        f3(f1(),f2())
         k=len(j)
         if ((j[0]=='ld' or j[0]=='st' or j[0] in lab) and j[k-1] in lab and j[0]!='end:'):
-            error_message = f"error can't use labels as variables in line {c}"
             print(f"error can't use labels as variables in line {c}")
-            file2.write(error_message)
-            file2.write("\n")
             error=True
     c=0
     if not error:
-        f1()
-        f2()
-        f4()
-        f3(f1(),f2())
         for j in main_lst:
             c+=1
             l=len(j)
             if(j[0]=='hlt'):
                 break
             elif(j[l-1] not in var and (j[0]=='ld' or j[0]=='st' or j[0] in labels) and j[0]!='end:'):
-                error_message = f"error undefined variable used in line {c}."
                 print(f"error undefined variable used in line {c}.")
-                file2.write(error_message)
-                file2.write("\n")
                 error=True
 
 #**************************************************************************************************************************************
@@ -421,39 +322,22 @@ if True:
     for j in main_lst:
         c+=1
         for i in j:
-            f1()
-            f2()
-            f4()
-            f3(f1(),f2())
             if(':' in i and i not in labels):
-                error_message = f"error label is undefined in line {c}"
                 print(f"error label is undefined in line {c}")
-                file2.write(error_message)
-                file2.write("\n")
                 error=True
     if not error:
         for j in main_lst:
             if(':' in j[0] and j[0] in var):
-                error_message = "error can't use varibales as labels"
                 print("error can't use varibales as labels")
-                file2.write(error_message)
-                file2.write("\n")
                 error=True
 
 #**************************************************************************************************************************************
 
 #checking for multiple variable declaration
 repeat=[]
-f1()
-f2()
-f4()
-f3(f1(),f2())
 for j in var:
     if (j in repeat):
-        error_message = f"error repeating variable {j}"
         print(f"error repeating variable {j}")
-        file2.write(error_message)
-        file2.write("\n")
         error=True 
     else:
         repeat.append(j)
@@ -462,15 +346,8 @@ for j in var:
 repeat=[]
 for j in labels:
     if(j in repeat):
-        error_message = f"error repeating label {j}"
         print(f"error repeating label {j}")
-        file2.write(error_message)
-        file2.write("\n")
         error=True
-        f1()
-        f2()
-        f4()
-        f3(f1(),f2())
     else:
         repeat.append(j)
 
@@ -478,41 +355,24 @@ for j in labels:
 
 # checking for not using hlt missing and at end
 c=0
-f1()
-f2()
-f4()
-f3(f1(),f2())
 for j in main_lst:
     if ('hlt' not in j):
         c+=1
 
 try:
     if(c==le):
-        error_message = "error hlt is missing"
         print("error hlt is missing")
-        file2.write(error_message)
-        file2.write("\n")
         error=True
-        
 except:
     if ('hlt' not in main_lst[le-1]):
-        error_message = "error hlt not used at end"
         print("error hlt not used at end")
-        file2.write(error_message)
-        file2.write("\n")
         error=True
 
 # nothing should be after halt
 if ('hlt' not in main_lst[le-1]):
-    error_message = "cant execute lines after hlt"
     print("cant execute lines after hlt")
-    file2.write(error_message)
-    file2.write("\n")
     error=True
-f1()
-f2()
-f4()
-f3(f1(),f2())
+
                           # this is printing the binary code part 
 #********************************************************************************************************************************************
               # THIS IS ASSEMBLER THIS WILL RUN ONLY WHEN THERE ARE NO ERRORS IN THE ASSEMBLY CODE 
@@ -527,22 +387,11 @@ a13 = f1()
 a80 = f2()
 a123 = a13 + a80
 if(error==True):
-    f1()
-    f2()
-    f4()
-    f3(f1(),f2())
     exit()
-f1()
-f2()
-f4()
-f3(f1(),f2())
+
 
 #*********************************THIS LOOP WILL STORE THE ADDRESS OF ALL VARIABLES IN DICTIONARY*********************
 for line in code:
-    f1()
-    f2()
-    f4()
-    f3(f1(),f2())
     if len(line)==0:
         continue
     d32 = f4()
@@ -570,10 +419,6 @@ for line in code:
     a13 = f1()
     a80 = f2()
     a123 = a13 + a80
-    f1()
-    f2()
-    f4()
-    f3(f1(),f2())
     if(len(line)==0):
         continue
     value = list(line.split())
@@ -585,10 +430,6 @@ for line in code:
 
 #********************************* THIS IS MAIN LOOP TO COVERT ASSEMBLY INTO BINARY CODE *******************************
 for line in code:
-    f1()
-    f2()
-    f4()
-    f3(f1(),f2())
     try:
         if len(line) == 0:
             # there is an empty line, continue
@@ -604,16 +445,12 @@ for line in code:
             b = value[2][1:]
             b1 = bin(int(b))[2:]
             s = operations['mov1'][0] + RegAddress[a] + (8 - len(b1)) * "0" + b1
-            file2.write(s)
-            file2.write("\n")
             print(s)
 
         elif(operation=='mov' and value[2][0]=='R'):
             a = value[1]
             b = value[2]
             s = operations['mov2'][0] + "00000" + RegAddress[a] + RegAddress[b]
-            file2.write(s)
-            file2.write("\n")
             print(s)
 
         elif operation in opr_sym:
@@ -649,14 +486,12 @@ for line in code:
 
             elif case == "F":
                 s = operations[operation][0] + "00000000000"
-            file2.write(s)
-            file2.write("\n")
+
             print(s)
 
     except KeyError as e:
         pass
         # print(f"KeyError: {str(e)} occurred while processing line: {line}")
-file2.close()
 
 
 
