@@ -173,7 +173,10 @@ for j in main_lst:
         try:
             var.append(j[1])
         except:
+            error_message = "error variable not declared"
             print("error variable not declared")
+            file2.write(error_message)
+            file2.write("\n")
             error=True
 
 #***********************************************************************************************************************************
@@ -190,11 +193,17 @@ for j in main_lst:
         else:
             if(dol[0]=='$'):
                 if (dol[1:].isnumeric()==False):
+                    error_message = f"error invalid immidiate value entered {c}."
                     print(f"error invalid immidiate value entered {c}.")
+                    file2.write(error_message)
+                    file2.write("\n")
                 else:
                     n = int(dol[1:])
                     if (n<0 or n>256):
+                        error_message = f"error invalid immidiate value entered {c}."
                         print(f"error invalid immidiate value entered {c}.")
+                        file2.write(error_message)
+                        file2.write("\n")
                         error=True
 
 # checking for typos in reg_names
@@ -209,7 +218,10 @@ for j in main_lst:
                 if(i[0]=='R'):
                     a=i
                     if(a not in reg):
+                        error_message = f"error invalid register entered {c}."
                         print(f"error invalid register entered {c}.")
+                        file2.write(error_message)
+                        file2.write("\n")
                         error=True
 
 # checking for typos in opr_symbols
@@ -218,7 +230,10 @@ for j in main_lst:
     c+=1
     if(j!=['']):
         if(j[0] not in opr_sym and (j[0]!='var' and ':' not in j[0])):
+            error_message = f"error invalid operation symbol is used {c}."
             print(f"error invalid operation symbol is used {c}.")
+            file2.write(error_message)
+            file2.write("\n")
             error=True
 
 #*************************************************************************************************************************************
@@ -229,20 +244,32 @@ for value in main_lst:
     operation = value[0]
     c+=1
     if (operation=='mov' and value[2][0]!='$' and value[2] in var):
+        error_message = f"error inncorrect immediate value enetred in line {c}"
         print(f"error inncorrect immediate value enetred in line {c}")
+        file2.write(error_message)
+        file2.write("\n")
 
     elif (operation in opr_sym and operation!='mov'):
         # matching the values with op_mnemoics
         case = operations[operation][1]
 
         if (case == "B" and value[2][0]!='$' and value[2] in var):
+             error_message = f"error inncorrect immediate value enetred in line {c}"
              print(f"error inncorrect immediate value enetred in line {c}")
+             file2.write(error_message)
+             file2.write("\n")
 
         elif (case == "D" and value[2][0]!='$' and value[2] in var):
+            error_message = f"error inncorrect immediate value enetred in line {c}"
             print(f"error inncorrect immediate value enetred in line {c}")
+            file2.write(error_message)
+            file2.write("\n")
 
         elif (case == "E" and value[1][0]!='$' and value[1] in var):
+            error_message = f"error inncorrect immediate value enetred in line {c}"
             print(f"error inncorrect immediate value enetred in line {c}")
+            file2.write(error_message)
+            file2.write("\n")
 
 #*************************************************************************************************************************************
 
@@ -252,26 +279,45 @@ for value in main_lst:
     operation = value[0]
     c+=1
     if (operation=='mov' and len(value)!=3):
+        error_message = f"error not enough parameters for mov in line {c}"
         print(f"error not enough parameters for mov in line {c}")
+        file2.write(error_message)
+        file2.write("\n")
 
     elif (operation in opr_sym and operation!='mov'):
         # matching the values with op_mnemoics
         case = operations[operation][1]
 
         if (case == "B" and len(value)!=3):
-             print(f"error not enough parameters for {operation}")
+            error_message = f"error not enough parameters for {operation}"
+            print(f"error not enough parameters for {operation}")
+            file2.write(error_message)
+            file2.write("\n")
+             
 
         elif (case == "A" and len(value)!=4):
+            error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
+            file2.write(error_message)
+            file2.write("\n")
 
         elif (case == "C" and len(value)!=3):
+            error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
+            file2.write(error_message)
+            file2.write("\n")
 
         elif (case == "D" and len(value)!=3):
+            error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
+            file2.write(error_message)
+            file2.write("\n")
 
         elif (case == "E" and len(value)!=2):
+            error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
+            file2.write(error_message)
+            file2.write("\n")
 
 #*************************************************************************************************************************************
 
@@ -289,7 +335,10 @@ for j in range(c_out, le-1):
     if(main_lst[j][0]=='var'):
         c_var+=1
 if (c_var>c_out):
+    error_message = "error declare variables at the top"
     print("error declare variables at the top")
+    file2.write(error_message)
+    file2.write("\n")
     error=True
 
 #************************************************************************************************************************************
@@ -301,7 +350,10 @@ if(True):
         c+=1
         k=len(j)
         if ((j[0]=='ld' or j[0]=='st' or j[0] in lab) and j[k-1] in lab and j[0]!='end:'):
+            error_message = f"error can't use labels as variables in line {c}"
             print(f"error can't use labels as variables in line {c}")
+            file2.write(error_message)
+            file2.write("\n")
             error=True
     c=0
     if not error:
@@ -311,7 +363,10 @@ if(True):
             if(j[0]=='hlt'):
                 break
             elif(j[l-1] not in var and (j[0]=='ld' or j[0]=='st' or j[0] in labels) and j[0]!='end:'):
+                error_message = f"error undefined variable used in line {c}."
                 print(f"error undefined variable used in line {c}.")
+                file2.write(error_message)
+                file2.write("\n")
                 error=True
 
 #**************************************************************************************************************************************
@@ -323,12 +378,18 @@ if True:
         c+=1
         for i in j:
             if(':' in i and i not in labels):
+                error_message = f"error label is undefined in line {c}"
                 print(f"error label is undefined in line {c}")
+                file2.write(error_message)
+                file2.write("\n")
                 error=True
     if not error:
         for j in main_lst:
             if(':' in j[0] and j[0] in var):
+                error_message = "error can't use varibales as labels"
                 print("error can't use varibales as labels")
+                file2.write(error_message)
+                file2.write("\n")
                 error=True
 
 #**************************************************************************************************************************************
@@ -337,7 +398,10 @@ if True:
 repeat=[]
 for j in var:
     if (j in repeat):
+        error_message = f"error repeating variable {j}"
         print(f"error repeating variable {j}")
+        file2.write(error_message)
+        file2.write("\n")
         error=True 
     else:
         repeat.append(j)
@@ -346,7 +410,10 @@ for j in var:
 repeat=[]
 for j in labels:
     if(j in repeat):
+        error_message = f"error repeating label {j}"
         print(f"error repeating label {j}")
+        file2.write(error_message)
+        file2.write("\n")
         error=True
     else:
         repeat.append(j)
@@ -361,16 +428,25 @@ for j in main_lst:
 
 try:
     if(c==le):
+        error_message = "error hlt is missing"
         print("error hlt is missing")
+        file2.write(error_message)
+        file2.write("\n")
         error=True
 except:
     if ('hlt' not in main_lst[le-1]):
+        error_message = "error hlt not used at end"
         print("error hlt not used at end")
+        file2.write(error_message)
+        file2.write("\n")
         error=True
 
 # nothing should be after halt
 if ('hlt' not in main_lst[le-1]):
+    error_message = "cant execute lines after hlt"
     print("cant execute lines after hlt")
+    file2.write(error_message)
+    file2.write("\n")
     error=True
 
                           # this is printing the binary code part 

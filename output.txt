@@ -1,0 +1,4 @@
+error inncorrect immediate value enetred in line 4
+error inncorrect immediate value enetred in line 5
+error inncorrect immediate value enetred in line 6
+error undefined variable used in line 9.
