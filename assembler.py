@@ -2,14 +2,14 @@
     CSE 112 - Computer Organisation group project.
         group members :
             Aditya Sharma 2022038
-            Ayan kumar 
+            Ayan kumar singh 2022122
             Ayaan hasan 2022121
             Kanishk Kumar Meena 2022233
 '''
 
 
 # ------------------------------------------taking input throught a text file contating assemble code------------------------------------------------------
-with open('test04.txt') as file1:  
+with open('test_case1.txt') as file1:  
     code = file1.read().splitlines() 
 # ----------------------------------------------file to which the out generated will be written---------------------------------------------------
 file2 = open("output.txt","w")
@@ -418,7 +418,7 @@ if(True):
         f4()
         f3(f1(),f2())
         k=len(j)
-        if ((j[0]=='ld' or j[0]=='st' or j[0] in lab) and j[k-1] in lab and j[0]!='end:'):
+        if ((j[0]=='ld' or j[0]=='st' or j[0] in lab) and j[k-1] in lab and j[0] not in labels):
             error_message = f"error can't use labels as variables in line {c}"
             print(f"error can't use labels as variables in line {c}")
             file2.write(error_message)
@@ -435,7 +435,7 @@ if(True):
             l=len(j)
             if(j[0]=='hlt'):
                 break
-            elif(j[l-1] not in var and (j[0]=='ld' or j[0]=='st' or j[0] in labels) and j[0]!='end:'):
+            elif(j[l-1] not in var and (j[0]=='ld' or j[0]=='st' or j[0] in labels) and j[0] not in labels):
                 error_message = f"error undefined variable used in line {c}."
                 print(f"error undefined variable used in line {c}.")
                 file2.write(error_message)
