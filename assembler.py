@@ -3,15 +3,16 @@
         group members :
             Aditya Sharma 2022038
             Ayan kumar 
-            Aayan hasan 2022121
+            Ayaan hasan 2022121
             Kanishk Kumar Meena 2022233
 '''
 
 
 # ------------------------------------------taking input throught a text file contating assemble code------------------------------------------------------
-with open('t1.txt') as f:  
-    code = f.read().splitlines() 
-
+with open('test_case3.txt') as file1:  
+    code = file1.read().splitlines() 
+# ----------------------------------------------file to which the out generated will be written---------------------------------------------------
+file2 = open("output.txt","w")
 # -----------------------------------------------input code ends---------------------------------------------
  # ACTUAL CODE STARTS FORM HERE  
 
@@ -120,7 +121,6 @@ def f3(a, b):
     return result
 
 import numpy as np
-
 
 def f4():
     operaion3 = [[0,0,3],[0,5,6],[0,8,9]]
@@ -445,12 +445,16 @@ for line in code:
             b = value[2][1:]
             b1 = bin(int(b))[2:]
             s = operations['mov1'][0] + RegAddress[a] + (8 - len(b1)) * "0" + b1
+            file2.write(s)
+            file2.write("\n")
             print(s)
 
         elif(operation=='mov' and value[2][0]=='R'):
             a = value[1]
             b = value[2]
             s = operations['mov2'][0] + "00000" + RegAddress[a] + RegAddress[b]
+            file2.write(s)
+            file2.write("\n")
             print(s)
 
         elif operation in opr_sym:
@@ -486,12 +490,14 @@ for line in code:
 
             elif case == "F":
                 s = operations[operation][0] + "00000000000"
-
+            file2.write(s)
+            file2.write("\n")
             print(s)
 
     except KeyError as e:
         pass
         # print(f"KeyError: {str(e)} occurred while processing line: {line}")
+file2.close()
 
 
 
