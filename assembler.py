@@ -2,15 +2,18 @@
     CSE 112 - Computer Organisation group project.
         group members :
             Aditya Sharma 2022038
-            Ayan kumar singh 2022122
+            Ayan kumar 
             Ayaan hasan 2022121
             Kanishk Kumar Meena 2022233
 '''
 
 
+# uncomment these 2 lines for taking a file as an input through console
+import sys                                    
+code = sys.stdin.read().splitlines()
 # ------------------------------------------taking input throught a text file contating assemble code------------------------------------------------------
-with open('test_case1.txt') as file1:  
-    code = file1.read().splitlines() 
+# with open('test01.txt') as file1:  
+#     code = file1.read().splitlines() 
 # ----------------------------------------------file to which the out generated will be written---------------------------------------------------
 file2 = open("output.txt","w")
 # -----------------------------------------------input code ends---------------------------------------------
@@ -20,6 +23,7 @@ main_lst=[]
 for i in code:
     a=i.split(' ')
     main_lst.append(a)
+
 
 # making a dictionary with register 0,1,2,3,4,5,6 mapped to there binary code 
 # there are total 7 general purpose register and one flag register
@@ -120,7 +124,7 @@ def f3(a, b):
     f1()
     return result
 
-import numpy as np
+# import numpy as np
 
 def f4():
     operaion3 = [[0,0,3],[0,5,6],[0,8,9]]
@@ -288,9 +292,10 @@ for value in main_lst:
     f4()
     f3(f1(),f2())
     if (operation=='mov' and value[2][0]!='$'):
-        if (value[2] not in var and value[2] not in lab):
+        if (value[2] not in var and value[2] not in lab and value[2] not in reg):
             error_message = f"error inncorrect immediate value enetred in line {c}"
             print(f"error inncorrect immediate value enetred in line {c}")
+            error=True
             file2.write(error_message)
             file2.write("\n")
 
@@ -299,23 +304,26 @@ for value in main_lst:
         case = operations[operation][1]
 
         if (case == "B" and value[2][0]!='$'):
-            if(value[2] not in var and value[2] not in lab):
+            if(value[2] not in var and value[2] not in lab and value[2] not in reg):
                 error_message = f"error inncorrect immediate value enetred in line {c}"
                 print(f"error inncorrect immediate value enetred in line {c}")
+                error=True
                 file2.write(error_message)
                 file2.write("\n")
 
         elif (case == "D" and value[2][0]!='$'):
-            if(value[2] not in var and value[2] not in lab):
+            if(value[2] not in var and value[2] not in lab and value[2] not in reg):
                 error_message = f"error inncorrect immediate value enetred in line {c}"
                 print(f"error inncorrect immediate value enetred in line {c}")
+                error=True
                 file2.write(error_message)
                 file2.write("\n")
 
         elif (case == "E" and value[1][0]!='$'):
-            if(value[1] not in var and value[1] not in lab):
+            if(value[1] not in var and value[1] not in lab and value[2] not in reg):
                 error_message = f"error inncorrect immediate value enetred in line {c}"
                 print(f"error inncorrect immediate value enetred in line {c}")
+                error=True
                 file2.write(error_message)
                 file2.write("\n")
 
