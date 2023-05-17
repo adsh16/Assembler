@@ -7,19 +7,26 @@
             Kanishk Kumar Meena 2022233
 '''
 
+import sys
 
 # ------------------------------------------taking input throught a text file contating assemble code------------------------------------------------------
-with open('test_case1.txt') as file1:  
-    code = file1.read().splitlines() 
+
+main_lst=[]
+for kx in sys.stdin:
+    main_lst.append(kx)
+
+
+# with open('test_case1.txt') as file1:  
+#     code = file1.read().splitlines() 
 # ----------------------------------------------file to which the out generated will be written---------------------------------------------------
 file2 = open("output.txt","w")
 # -----------------------------------------------input code ends---------------------------------------------
  # ACTUAL CODE STARTS FORM HERE  
 
 main_lst=[]
-for i in code:
-    a=i.split(' ')
-    main_lst.append(a)
+# for i in code:
+#     a=i.split(' ')
+#     main_lst.append(a)
 
 # making a dictionary with register 0,1,2,3,4,5,6 mapped to there binary code 
 # there are total 7 general purpose register and one flag register

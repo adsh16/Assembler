@@ -1,4 +1,5 @@
-error inncorrect immediate value enetred in line 4
-error inncorrect immediate value enetred in line 5
-error inncorrect immediate value enetred in line 6
-error undefined variable used in line 9.
+0001000100001010
+0001001001100100
+0011000011010001
+0010101100000101
+1101000000000000
