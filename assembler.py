@@ -7,21 +7,18 @@
             Kanishk Kumar Meena 2022233
 '''
 
-import sys
+
 
 # ------------------------------------------taking input throught a text file contating assemble code-------------------------------------------------
 
 # uncomment these lines to take input from stdout
 
-# main_lst=[]
-# for kx in sys.stdin:
-#     main_lst.append(kx)
-
-
+import sys
+code=sys.stdin.read().splitlines()
 
 # --------------------------------------------------------------------taking input from test case file -------------------------------------------------
-with open('test_case1.txt') as file1:  
-    code = file1.read().splitlines() 
+# with open('test_case1.txt') as file1:  
+#     code = file1.read().splitlines() 
 # ----------------------------------------------file to which the out generated will be written-----------------------------------------------------------
 
 # the code will print the output binary code to the output.txt file and also show it in terminal.
