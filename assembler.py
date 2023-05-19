@@ -17,7 +17,7 @@ import sys
 code=sys.stdin.read().splitlines()
 
 # --------------------------------------------------------------------taking input from test case file -------------------------------------------------
-# with open('test_case1.txt') as file1:  
+# with open('t.txt') as file1:  
 #     code = file1.read().splitlines() 
 # ----------------------------------------------file to which the out generated will be written-----------------------------------------------------------
 
@@ -130,7 +130,7 @@ def f3(a, b):
     f1()
     return result
 
-import numpy as np
+# import numpy as np
 
 def f4():
     operaion3 = [[0,0,3],[0,5,6],[0,8,9]]
@@ -297,10 +297,11 @@ for value in main_lst:
     f2()
     f4()
     f3(f1(),f2())
-    if (operation=='mov' and value[2][0] =='$'):
-        if (value[2] not in var and value[2] not in lab):
+    if (operation=='mov' and value[2][0] !='$'):
+        if (value[2] not in var and value[2] not in lab and value[2] not in flags):
             error_message = f"error inncorrect immediate value enetred in line {c}"
             print(f"error inncorrect immediate value enetred in line {c}")
+            error=True
             file2.write(error_message)
             file2.write("\n")
 
@@ -312,6 +313,7 @@ for value in main_lst:
             if(value[2] not in var and value[2] not in lab):
                 error_message = f"error inncorrect immediate value enetred in line {c}"
                 print(f"error inncorrect immediate value enetred in line {c}")
+                error=True
                 file2.write(error_message)
                 file2.write("\n")
 
@@ -319,6 +321,7 @@ for value in main_lst:
             if(value[2] not in var and value[2] not in lab):
                 error_message = f"error inncorrect immediate value enetred in line {c}"
                 print(f"error inncorrect immediate value enetred in line {c}")
+                error=True
                 file2.write(error_message)
                 file2.write("\n")
 
@@ -326,6 +329,7 @@ for value in main_lst:
             if(value[1] not in var and value[1] not in lab):
                 error_message = f"error inncorrect immediate value enetred in line {c}"
                 print(f"error inncorrect immediate value enetred in line {c}")
+                error=True
                 file2.write(error_message)
                 file2.write("\n")
 
@@ -516,6 +520,7 @@ for j in labels:
 #******************************************************************************************************************#
 
 # checking for not using hlt missing and at end
+h=False
 c=0
 f1()
 f2()
@@ -532,6 +537,7 @@ try:
         file2.write(error_message)
         file2.write("\n")
         error=True
+        h=True
         
 except:
     if ('hlt' not in main_lst[le-1]):
@@ -540,9 +546,10 @@ except:
         file2.write(error_message)
         file2.write("\n")
         error=True
+        h=True
 
 # nothing should be after halt
-if ('hlt' not in main_lst[le-1]):
+if ('hlt' not in main_lst[le-1] and h==False):
     error_message = "cant execute lines after hlt"
     print("cant execute lines after hlt")
     file2.write(error_message)
@@ -648,6 +655,14 @@ for line in code:
             print(s)
 
         elif(operation=='mov' and value[2][0]=='R'):
+            a = value[1]
+            b = value[2]
+            s = operations['mov2'][0] + "00000" + RegAddress[a] + RegAddress[b]
+            file2.write(s)
+            file2.write("\n")
+            print(s)
+
+        elif(operation=='mov' and value[2]=='FLAGS'):
             a = value[1]
             b = value[2]
             s = operations['mov2'][0] + "00000" + RegAddress[a] + RegAddress[b]
