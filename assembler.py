@@ -9,24 +9,30 @@
 
 import sys
 
-# ------------------------------------------taking input throught a text file contating assemble code------------------------------------------------------
+# ------------------------------------------taking input throught a text file contating assemble code-------------------------------------------------
 
-main_lst=[]
-for kx in sys.stdin:
-    main_lst.append(kx)
+# uncomment these lines to take input from stdout
+
+# main_lst=[]
+# for kx in sys.stdin:
+#     main_lst.append(kx)
 
 
-# with open('test_case1.txt') as file1:  
-#     code = file1.read().splitlines() 
-# ----------------------------------------------file to which the out generated will be written---------------------------------------------------
+
+# --------------------------------------------------------------------taking input from test case file -------------------------------------------------
+with open('test_case2.txt') as file1:  
+    code = file1.read().splitlines() 
+# ----------------------------------------------file to which the out generated will be written-----------------------------------------------------------
+
+# the code will print the output binary code to the output.txt file and also show it in terminal.
 file2 = open("output.txt","w")
-# -----------------------------------------------input code ends---------------------------------------------
+# ---------------------------------------------------------------------------------input code ends--------------------------------------------------------------
  # ACTUAL CODE STARTS FORM HERE  
 
 main_lst=[]
-# for i in code:
-#     a=i.split(' ')
-#     main_lst.append(a)
+for i in code:
+    a=i.split(' ')
+    main_lst.append(a)
 
 # making a dictionary with register 0,1,2,3,4,5,6 mapped to there binary code 
 # there are total 7 general purpose register and one flag register
@@ -639,7 +645,7 @@ for line in code:
             a = value[1]
             b = value[2][1:]
             b1 = bin(int(b))[2:]
-            s = operations['mov1'][0] + RegAddress[a] + (8 - len(b1)) * "0" + b1
+            s = operations['mov1'][0] + "0" + RegAddress[a] + (7 - len(b1)) * "0" + b1
             file2.write(s)
             file2.write("\n")
             print(s)
@@ -660,7 +666,7 @@ for line in code:
                 a = value[1]
                 b = value[2][1:]
                 b1 = bin(int(b))[2:]
-                s = operations[operation][0] + RegAddress[a] + (8 - len(b1)) * "0" + b1
+                s = operations[operation][0] + "0" + RegAddress[a] + (7 - len(b1)) * "0" + b1
 
             elif case == "A":
                 a = value[1]
@@ -676,12 +682,12 @@ for line in code:
             elif case == "D":
                 a = value[1]
                 b = bin(variables[value[2]])[2:]
-                s = operations[operation][0] + RegAddress[a] + (8 - len(b)) * "0" + b
+                s = operations[operation][0] + "0" + RegAddress[a] + (7 - len(b)) * "0" + b
 
             elif case == "E":
                 a = value[1]
                 b = bin(labels[a+":"])[2:]
-                s = operations[operation][0] + "000" + (8 - len(b)) * "0" + b
+                s = operations[operation][0] + "0000" + (7 - len(b)) * "0" + b
 
             elif case == "F":
                 s = operations[operation][0] + "00000000000"
