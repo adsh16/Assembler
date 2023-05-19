@@ -20,7 +20,7 @@ import sys
 
 
 # --------------------------------------------------------------------taking input from test case file -------------------------------------------------
-with open('test_case2.txt') as file1:  
+with open('test_case1.txt') as file1:  
     code = file1.read().splitlines() 
 # ----------------------------------------------file to which the out generated will be written-----------------------------------------------------------
 
@@ -300,7 +300,7 @@ for value in main_lst:
     f2()
     f4()
     f3(f1(),f2())
-    if (operation=='mov' and value[2][0]!='$'):
+    if (operation=='mov' and value[2][0] =='$'):
         if (value[2] not in var and value[2] not in lab):
             error_message = f"error inncorrect immediate value enetred in line {c}"
             print(f"error inncorrect immediate value enetred in line {c}")
