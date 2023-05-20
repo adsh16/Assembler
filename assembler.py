@@ -13,12 +13,12 @@
 
 # uncomment these lines to take input from stdout
 
-# import sys
-# code=sys.stdin.read().splitlines()
+import sys
+code=sys.stdin.read().splitlines()
 
 # --------------------------------------------------------------------taking input from test case file -------------------------------------------------
-with open('test_case2.txt') as file1:  
-    code = file1.read().splitlines() 
+# with open('t.txt') as file1:  
+#     code = file1.read().splitlines() 
 # ----------------------------------------------file to which the out generated will be written-----------------------------------------------------------
 
 # the code will print the output binary code to the output.txt file and also show it in terminal.
