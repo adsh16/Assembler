@@ -1,6 +1,6 @@
 var xyz
 var abc
-mylabel: add R0 R1 R2
+mylabel: 	add R0 R1 R2
 sub	R0 R1 R2
 mov	R0 $100
 mov	R1 R2

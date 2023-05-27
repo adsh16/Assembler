@@ -174,17 +174,28 @@ for j in main_lst:
         if(j[0]==''):
             del j[0]
 
-# removing \t from the instructions
+# removing \t from starting of instructions (for labels)
 new_lst = []
 for j in main_lst:
     new_j = []
     for instr in j:
         if '\t' in instr:
-            label, instr = instr.split('\t')
+            label, instr = instr.split('\t',1)
             new_j.append(label)
         new_j.append(instr.replace('\t', ''))
     new_lst.append(new_j)
 main_lst = new_lst
+
+# removing \t from ending of instructions (for all instructions)
+
+new_lst = []
+for j in main_lst:
+    if j[len(j)-1] == '':
+        j.pop()
+    new_lst.append(j)
+main_lst = new_lst
+#  ----------------------------------------------------------------------------------
+
 
 # removing '' form the main lst
 for j in main_lst:
@@ -249,9 +260,9 @@ for j in main_lst:
                     file2.write("\n")
                 else:
                     n = int(dol[1:])
-                    if (n<0 or n>256):
+                    if (n<0 or n>127):
                         error_message = f"error invalid immidiate value entered {c}."
-                        print(f"error invalid immidiate value entered {c}.")
+                        print(f"error invalid immidiate value entered (not in range of (0,126)) in line {c}.")
                         file2.write(error_message)
                         file2.write("\n")
                         error=True
@@ -345,6 +356,7 @@ for value in main_lst:
     f4()
     f3(f1(),f2())
     if (operation=='mov' and len(value)!=3):
+        error = True
         error_message = f"error not enough parameters for mov in line {c}"
         print(f"error not enough parameters for mov in line {c}")
         file2.write(error_message)
@@ -355,31 +367,64 @@ for value in main_lst:
         case = operations[operation][1]
 
         if (case == "B" and len(value)!=3):
+            error = True
             error_message = f"error not enough parameters for {operation}"
             print(f"error not enough parameters for {operation}")
             file2.write(error_message)
             file2.write("\n")
              
+        # ---------------------------------------------------------------------------------------
+        # checking for illegal use of flag register. eg : add R1 R2 FLAGS
+        elif (case == "A" and len(value) == 4):
+            if (value[3] not in reg):
+                error = True
+                error_message = f"invalid register used in {operation} in line {c}"
+                print(f"invalid register used in {operation} in line {c}")
+                file2.write(error_message)
+                file2.write("\n")
+
+        # ---------------------------------------------------------------------------------------
 
         elif (case == "A" and len(value)!=4):
+            error = True
             error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
             file2.write(error_message)
             file2.write("\n")
 
         elif (case == "C" and len(value)!=3):
+            error = True
             error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
             file2.write(error_message)
             file2.write("\n")
 
         elif (case == "D" and len(value)!=3):
+            error = True
             error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
             file2.write(error_message)
             file2.write("\n")
+        elif (case == "D"):
+            if (len(value)!=3):
+                error = True
+                error_message = f"error not enough parameters in {operation} in line {c}"
+                print(f"error not enough parameters in {operation} in line {c}")
+                file2.write(error_message)
+                file2.write("\n")
+            #-----------------------------------------------------------------------------------------
+            # checking for invalid parameters in ld and st instructions. (using variable which are undecalred)
+            elif(len(value) == 3):
+                if (value[2] not in var and value[2] not in reg):
+                    error = True
+                    error_message = f"no variable or register named {value[2]} decalred for {operation} in line {c}"
+                    print(f"no variable or register named {value[2]} decalred for {operation} in line {c}")
+                    file2.write(error_message)
+                    file2.write("\n")
+            #--------------------------------------------------------------------------------------------
 
         elif (case == "E" and len(value)!=2):
+            error = True
             error_message = f"error not enough parameters in {operation} in line {c}"
             print(f"error not enough parameters in {operation} in line {c}")
             file2.write(error_message)
